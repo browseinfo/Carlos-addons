@@ -31,7 +31,7 @@ Configure servers and trigger synchronization with its database objects.
     "author": "Browseinfo",
     "images": ['images/1_servers_synchro.jpeg','images/2_synchronize.jpeg','images/3_objects_synchro.jpeg',],
     "depends": ["base"],
-    'website': 'http://www.serpentcs.com',
+    'website': 'http://www.browseinfo.in',
     "data": [
         "wizard/base_synchro_view.xml",
         "base_synchro_view.xml",
