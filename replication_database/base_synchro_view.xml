@@ -70,9 +70,9 @@
             <field name="res_model">base.synchro.obj.line</field>
             <field name="view_type">form</field>
         </record>
-        <menuitem id="next_id_63" name="History" groups="base.group_no_one" parent="base_synchro.next_id_62"/>
+        <menuitem id="next_id_63" name="History" groups="base.group_no_one" parent="replication_database.next_id_62"/>
         <menuitem action="action_base_synchro_obj_line_tree" id="menu_action_base_synchro_obj_line_tree"
-            parent="base_synchro.next_id_63"/>
+            parent="replication_database.next_id_63"/>
         
         <!--view_base_synchro_obj starts-->
         
@@ -155,7 +155,7 @@
             <field name="view_type">form</field>
         </record>
         
-        <menuitem action="action_transfer_tree" id="transfer_menu_id" parent="base_synchro.next_id_63"/>
+        <menuitem action="action_transfer_tree" id="transfer_menu_id" parent="replication_database.next_id_63"/>
         
         
         <!--view_base_synchro_obj starts-->
@@ -202,7 +202,7 @@
         </record>
         
         <menuitem action="action_base_synchro_server_tree" id="synchro_server_tree_menu_id"
-            parent="base_synchro.synch_config"/>
+            parent="replication_databse.synch_config"/>
         
         <!--view_base_synchro_server end -->
         
