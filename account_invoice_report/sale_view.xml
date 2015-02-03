@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="saleExtendedView">
+            <field name="name">sale.order.extended</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+				<xpath expr="//page[@string='Other Information']" position="after">
+					<page string="Términos de Entrega">
+						<group>
+							<field name="date_delivery" attrs="{'readonly': [('state','!=','draft')]}"/>
+							<field name="tipo_venta" attrs="{'readonly': [('state','!=','draft')]}"/>
+						</group>
+					</page>
+          		</xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

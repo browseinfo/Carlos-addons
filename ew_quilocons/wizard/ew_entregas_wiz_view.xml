@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record id="view_report_entrega_wiz_qweb" model="ir.ui.view">
+            <field name="name">Detalle de Entregas</field>
+            <field name="model">ew.report_entregas.wiz.qweb</field>
+            <field name="arch" type="xml">
+                <form string="Detalle de Entregas">
+                    <group col="4">
+						<field name="start_date"/>
+						<field name="end_date"/>
+					</group>
+                    <footer>
+                        <button name="printEntregasPdf" string="Imprimir Reporte" type="object" class="oe_highlight"/>
+                        <!-- <button name="inventoryMovement" string="Exportar a Excel" type="object" class="oe_highlight"/> -->
+                        or
+                        <button string="Cancelar" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_entregas_qweb" model="ir.actions.act_window">
+            <field name="name">Detalle de Entregas</field>
+            <field name="res_model">ew.report_entregas.wiz.qweb</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_report_entrega_wiz_qweb"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem parent="base.menu_sales" 
+        	id="menu_entregas_report" action="action_entregas_qweb" sequence="10"/>
+
+        <record id="view_excel_form_extended" model="ir.ui.view">
+            <field name="name">excel.extended.form</field>
+            <field name="model">excel.extended</field>
+            <field name="arch" type="xml">
+                <form string="Excel Report file">
+                    <group>
+                        <field name="excel_file" readonly="1" filename="file_name"/>
+                        <field name="file_name" invisible="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_excel_form" model="ir.actions.act_window">
+            <field name="name">Sale Excel Report </field>
+            <field name="view_id" ref="view_excel_form_extended"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="res_model">excel.extended</field>
+            <field name="target">new</field>
+        </record>
+        
+	</data>
+</openerp>

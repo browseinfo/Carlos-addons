@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+        <!-- Vista para mostrar facturas -->
+        <record model="ir.ui.view" id="view_facturas_tree_inherit">
+            <field name="name">facturas.tree.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="account.invoice_tree" />
+            <field name="arch" type="xml">
+                <field name="date_invoice" position="after">
+                     <field name="invoice_number"/>
+<!--                      <field name="control_code"/> -->
+                     <field name="invoice_authorization_relacion"/>
+                     <field name="total_plus_comision"/>
+                </field>
+            </field>
+        </record>
+        
+        
+        <!-- Vista para mostrar facturas Formulario de Busqueda Avanzada -->
+        <record model="ir.ui.view" id="view_sale_order_search_inherit2">
+            <field name="name">facturas.tree.inherit2</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter" />
+            <field name="arch" type="xml">
+                <filter string="Due Month" position="after">
+	                <filter string="Dosificacion" domain="[]" context="{'group_by':'qr_code_id'}"/>
+                </filter>
+            </field>
+        </record>           		
+		
+		<record model="ir.ui.view" id="invoice_supplier_form_bo">
+			<field name="name">account.invoice.form.bo</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<xpath expr="//button[@name='invoice_open']" position="replace">
+					
+					<button name="invoice_open" states="draft,proforma2" string="Validate" 
+						class="oe_highlight" groups="account_invoice_report.group_sales_ext"/>
+					
+				</xpath>
+				
+			</field>
+		</record>
+		
+		
+		
+		<!-- Formulario de Facturas de Venta -->
+		<record model="ir.ui.view" id="account_invoice_bo">
+			<field name="name">account.invoice.form.bo</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='date_invoice']" position="before">
+					<field name="shop_id" required="1" on_change="onchange_shop_id(shop_id)" attrs="{'readonly': [('state','!=','draft')]}"/>
+					<field name="qr_code_id" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+					<field name="nit" attrs="{'readonly': [('state','!=','draft')]}" />
+					<field name="legal_customer_name" attrs="{'readonly': [('state','!=','draft')]}" />
+					<field name="get_month_first_date" invisible="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+					<field name="invoice_number" attrs="{'readonly': [('state','!=','draft')]}"/>
+					<field name="commission" attrs="{'readonly': [('state','!=','draft')]}"/>
+					<field name="amt_thirteen" invisible="1" />						
+					<newline />
+				</xpath>
+				<xpath expr="//field[@name='date_invoice']" position="replace">
+					<field name="date_invoice" required="0" readonly="1" />
+<!-- 					<field name="control_code"/> -->
+                    <field name="order_status" string="Estado Factura" attrs="{'readonly': [('state','!=','draft')]}"/>					
+				</xpath>
+				<xpath expr="//field[@name='fiscal_position']" position="after">
+
+				</xpath>
+				<xpath expr="//button[@name='invoice_open']" position="after">
+					<button string="Print QR" name="print_qr_report" type="object" attrs="{'readonly': [('state','!=','draft')]}" />
+				</xpath>
+				
+				<xpath expr="//button[@name='invoice_open']" position="replace">
+					 <button name="invoice_open" states="draft" string="Validate" 
+					 	class="oe_highlight" groups="account_invoice_report.group_sales_ext"/>
+				</xpath>
+				
+			</field>
+		</record>
+		
+		<menuitem action="account.action_invoice_tree3" id="account.menu_action_invoice_tree3" 
+			parent="account.menu_finance_receivables" groups="group_manager_ext"/>
+		
+		<!-- Formulario de dosificacion en el formulario de ALMACENES para ODOO 8 -->
+		<record model="ir.ui.view" id="sale_shop_view_extended">
+			<field name="name">stock.warehouse.extended</field>
+			<field name="model">stock.warehouse</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="stock.view_warehouse" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Technical Information']"
+					position="after">
+					<page string="Dosificacion Tienda">
+						<separator string="Parametros de Dosificacion QR" />
+						<field name="qr_code_ids" colspan="6" nolabel="1" />
+					</page>
+				</xpath>
+			</field>
+		</record>
+
+		<!-- Vista para mostrar todas las Dosificaciones QR -->
+		<record id="local_qr_code_view_tree" model="ir.ui.view">
+			<field name="name">view.qr.code.tree</field>
+			<field name="model">qr.code</field>
+			<field name="arch" type="xml">
+				<tree string="Dosificacion Tienda">
+					<field name="auth_number" />
+					<field name="nit_code_comapny" />
+					<field name="company_name" />
+					<field name="date_limit" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- Formulario de creacion de Dosificacion QR -->
+		<record id="view_qr_code_form" model="ir.ui.view">
+			<field name="name">view.qr.code.form</field>
+			<field name="model">qr.code</field>
+			<field name="arch" type="xml">
+				<form string="Dosificacion Tienda">
+					<sheet>
+						<group col="4" colspan="4">
+							<field name="auth_number" required="1" />
+							<field name="keygen" required="1" />
+							<field name="nit_code_comapny" required="1" />
+							<field name="company_name" required="1" />
+							<field name="date_limit" required="1" />
+							<field name="print_formate" />
+							<field name="invoice_authorization" invisible="1" />
+							<field name="invoice_number" invisible="1" />
+							<field name="qr_date" invisible="1" />
+							<field name="amount" invisible="1" />
+							<field name="ice" invisible="1" />
+							<field name="ivg" invisible="1" />
+							<field name="nit_code_customer" invisible="1" />
+							<field name="legal_customer_name" invisible="1" />
+						</group>
+						<notebook>
+							<page string="Shop">
+								<group>
+									<group>
+										<field name="code" />
+										<field name="slogan" />
+									</group>
+									<group>
+										<group col="2" colsapan="2">
+											<label for="street" string="Direccion" />
+											<group col="1">
+												<field name="street1" nolabel="1" placeholder="Street1" />
+												<field name="street2" nolabel="1" placeholder="Street2" />
+												<field name="city" nolabel="1" placeholder="City" />
+											</group>
+											<field name="phone" />
+										</group>
+									</group>
+								</group>
+								<separator string="Actividad Economica" />
+								<field name="description" />
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<!-- Action para el QR Code -->
+		<record id="action_config_qr_code" model="ir.actions.act_window">
+			<field name="name">Dosificacion Tienda</field>
+			<field name="res_model">qr.code</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		
+		<!--Menu para el QR Code
+		<menuitem id="menu_config_qr_code" action="action_config_qr_code"
+			parent="stock.menu_stock_configuration" />
+		-->
+	</data>
+</openerp>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<report
+            id="ew_presupuesto_document"
+            string="Presupuesto Quilocons"
+            model="sale.order"
+            report_type="qweb-pdf"
+            name="ew_quilocons.ew_presupuesto"
+            file="ew_quilocons.ew_presupuesto"
+         />
+         
+	</data>
+</openerp>

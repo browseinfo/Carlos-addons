@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_partner_form_bo" model="ir.ui.view">
+            <field name="name">res.partner.form.bo</field>
+            <field name="model">res.partner</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='name']" position="replace">
+            		<field name="name" default_focus="1" placeholder="Name" on_change="onchange_name(name)"/>
+            	</xpath>
+                <xpath expr="//label[@for='street']" position="before">
+                    <field name="tipo_cliente_id" />
+                </xpath>
+                <!--
+                <xpath expr="//field[@name='website']" position="after">
+                   
+                </xpath>
+                -->
+                <xpath expr="//field[@name='function']" position="before">
+                   <field name="nit" />
+                   <field name="legal_name_customer" />
+                   <!--
+                   <field name="razon" attrs="{'invisible': [('is_company','=', False)]}" on_change="onchange_razon(razon)"/>
+                   <field name="razon_invoice" attrs="{'invisible': [('is_company','=', False)]}"/>
+                   -->
+                </xpath>
+                <!--
+                <xpath expr="//field[@name='function']" position="before">
+               		<label for="ci" string="CI" attrs="{'invisible': [('is_company','=', True)]}"/>
+                    <div attrs="{'invisible': [('is_company','=', True)]}">
+                        <field name="ci" class="oe_inline"/>
+                       	<field name="ci_dept" class="oe_inline"/>
+                    </div>
+					<newline/>
+                </xpath>
+                -->
+            </field>
+        </record>
+
+        <record id="tipo_cliente_form_view" model="ir.ui.view">
+            <field name="name">tipo.cliente.form.view</field>
+            <field name="model">tipo.cliente</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de cliente" editable="bottom">
+                    <field name="tipo_cliente"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tipo_cliente_form_act" model="ir.actions.act_window">
+            <field name="name">Tipos de Cliente</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tipo.cliente</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem action="tipo_cliente_form_act" id="menu_tipo_cliente" name="Tipos de Cliente" sequence="8" parent="base.menu_config_address_book" groups="base.group_no_one"/>
+
+
+    </data>
+</openerp>

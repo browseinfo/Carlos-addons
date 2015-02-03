@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Boton de Presupuesto de Venta -->
+		<record model="ir.ui.view" id="account_invoice_bo">
+			<field name="name">sale.form.quilocons.bo</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<xpath expr="//field[@name='client_order_ref']" position="after">
+					<field name="comision"/>
+					<!--<field name="discount_amount" />-->
+				</xpath>
+				
+				<xpath expr="//button[@name='invoice_recreate']" position="after">
+					<button string="Imprimir Presupuesto" name="imprimir_presupuesto" type="object" />
+					<button string="Imprimir Nota de Venta" name="imprimir_nota_venta" type="object" />
+				</xpath>
+            </field>
+        </record>
+
+        <!--Sale Order campo source - Origen de marketing - tree view -->
+        <record model="ir.ui.view" id="view_sale_order_tree_inherit2">
+            <field name="name">sale.order.tree.inherit2</field>
+            <field name="model">sale.order</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="sale.view_order_tree" />
+            <field name="arch" type="xml">
+                <field name="amount_total" position="after">
+                     <field name="comision"/>
+                     <field name="source_id"/>
+                     <field name="discount_amount"/>
+                </field>
+            </field>
+        </record>
+        
+        <!--Sale Order - search view -->
+        <record model="ir.ui.view" id="view_sale_order_search_inherit2">
+            <field name="name">sale.order.search.inherit2</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter" />
+            <field name="arch" type="xml">
+                <filter string="Order Month" position="after">
+	                <filter string="Origen" domain="[]" context="{'group_by':'source_id'}"/>
+                </filter>
+            </field>
+        </record>        
+		
+        <!-- Limite de descuento por usuario -->
+        <record model="ir.ui.view" id="res_users_from_bo">
+            <field name="name">res.users.form.quilocons.bo</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Preferences']" position="after">
+                    <page string="Discount">
+	                    <group>
+	                          <group>
+	                            <field name="user_discount"/>
+	                          </group>
+	                    </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>        
+        
+        
+	</data>
+</openerp>

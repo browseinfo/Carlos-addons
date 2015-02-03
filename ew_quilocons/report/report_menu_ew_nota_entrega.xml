@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<report
+            id="ew_nota_entrega_document"
+            string="Presupuesto Quilocons"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="ew_quilocons.ew_nota_entrega"
+            file="ew_quilocons.ew_nota_entrega"
+         />
+         
+	</data>
+</openerp>

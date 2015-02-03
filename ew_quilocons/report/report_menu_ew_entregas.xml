@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="ew_entregas_document"
+            string="Detalle de Entregas"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="ew_quilocons.ew_entregas"
+            file="ew_quilocons.ew_entregas"
+         />
+    </data>
+</openerp>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="account_invoice_format_a_report_view" model="ir.ui.view">
+            <field name="name">Libro de Ventas</field>
+            <field name="model">account.invoice.format.a</field>
+            <field name="arch" type="xml">
+                <form string="Libro de Ventas" version="7.0">
+                    <group>
+                        <field name="period_id" />
+                    </group>
+                    <footer>
+                        <button type='object' name='print_invoice_format_a' string='Imprimir' icon='gtk-ok'/>
+						o                    
+                        <button special='cancel' string='Cancelar' icon='gtk-cancel'/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_account_invoice_format_a_report" model="ir.actions.act_window">
+            <field name="name">Invoice Format A</field>
+            <field name="res_model">account.invoice.format.a</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            name="Libro de Ventas"
+            parent="account.menu_finance_receivables"
+            action='action_account_invoice_format_a_report'
+            id="menu_account_invoice_libro_ventas"/>
+
+    </data>
+</openerp>

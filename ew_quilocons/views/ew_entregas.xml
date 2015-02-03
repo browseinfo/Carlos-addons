@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<template id="report.external_layout_header">
+			<div class="header">
+				<div class="row">
+					<div class="col-xs-3">
+						<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 45px;"/>
+					</div>
+				</div>
+			</div>
+		</template>
+		
+		<template id ="report.external_layout_footer">
+			<div class="footer">
+				<div class="text-center" style="border-top: 1px solid black;">
+					<div>Dir. Av. Capitan Ustariz Km 8 Telf. Of. (591) 4-4521414 e-mail: info@quilocons.com</div>
+					<div class="col-xs-3">
+						<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height:
+							45px;"/>
+					</div>
+				</div>
+			</div>
+		</template>				
+		
+		<template id="ew_entregas">
+				<t t-call="report.external_layout">
+					<div class="page">
+						<div class="main">
+							<div>
+								<div>
+									<h2>Detalle de Entregas</h2>
+								</div>
+								
+								<table class="col-xs-12">
+									<tr>
+										<td style="width:20%; float:right; font-weight: bold;">
+											<div><h3>Fecha</h3></div>
+										</td>
+										<td style="width:20%; float:left; font-weight: bold;">
+											<div><h3>Cliente</h3></div>
+										</td>	
+										<td style="width:20%; float:left; font-weight: bold;">
+											<div><h3>Producto</h3></div>
+										</td>																
+
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3>Cantidad</h3></div>
+										</td>
+										<td style="width:10%; float:right; font-weight: bold;text-align: right;">
+											<div><h3>PU</h3></div>
+										</td>
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3>Estado</h3></div>
+										</td>
+									</tr>
+								</table>
+								
+								<table t-foreach="getDeliveryData(data)" t-as="entrega" class="col-xs-12">
+								<tr>
+									<td style="width:20%; float:left;">
+										<div><t t-esc="entrega['date']" /></div>	
+									</td>
+									<td style="width:20%; float:left;">
+										<div><t t-esc="entrega['partner']" /></div>	
+									</td>
+									<td style="width:20%; float:left;">
+										<div><t t-esc="entrega['product']" /></div>	
+									</td>									
+
+									<td style="width:15%; float:left; text-align: right;">
+										<div><t t-esc="entrega['product_qty']" /></div>	
+									</td>
+									<td style="width:10%; float:left; text-align: right;">
+										<div><t t-esc="entrega['price_unit']" /></div>	
+									</td>									
+									<td style="width:15%; float:left; text-align: right;">
+										<div><t t-esc="getStateSpanish(entrega['state'])" /></div>	
+									</td>						
+								</tr>
+								</table>
+
+								<!--
+								<table class="col-xs-12">
+									<tr>
+										<td style="width:40%; float:left; font-weight: bold;">
+											<div><h3>Totales</h3></div>
+										</td>							
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3><t t-esc="totalYesterdayStock()"/></h3></div>
+										</td>
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3><t t-esc="totalTodayInStock()"/></h3></div>
+										</td>
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3><t t-esc="totalTodayOutStock()"/></h3></div>
+										</td>
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3><t t-esc="totalTodayStock()"/></h3></div>
+										</td>
+									</tr>
+								</table>
+								
+								-->
+										
+							</div>
+						</div>
+					</div>
+				</t>
+		</template>
+	</data>
+</openerp>

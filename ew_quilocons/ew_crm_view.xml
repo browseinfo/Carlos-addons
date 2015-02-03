@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_users_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.inherit</field>
+            <field name="model">res.users</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+            	
+            	<xpath expr="//field[@name='active']" position="after">
+					<field name="assign_seq" />            	
+            	</xpath>
+            
+            </field>
+            
+       </record>
+   </data>
+</openerp>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<!-- <data noupdate = "1"> 
+	
+	Para imprimir en Windows, dar full permisos en Parameter > System Parameters > web.base.url > Administration / Access Rights
+	http://prntscr.com/5t3sw0
+	
+	-->
+	<data>
+		<template id ="ew_presupuesto" >
+			<t t-name= "report.external_layout_header" >		
+				<div class="header">
+					<div class="row">
+						<div class="col-xs-3">
+							<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height:
+								45px;"/>
+						</div>
+						<!--<div class="col-xs-9 text-right" style="margin-top:20px;" t-field="company.rml_header1"/>-->
+					</div>
+					<div>HOLA ESTO ES CABEZERA CUSTOMIZADA</div>
+				</div>
+			</t>
+			<t t-name= "report.external_layout_footer" >						
+				<div class="footer">
+					<div class="text-center" style="border-top: 1px solid black;">
+						<div>Dir. Av. Capitan Ustariz Km 8 Telf. Of. (591) 4-4521414 e-mail: info@quilocons.com</div>
+						<div class="col-xs-3">
+							<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height:
+								45px;"/>
+						</div>
+					</div>
+				</div>
+			</t>	
+			<t t-call= "report.external_layout" >
+				<t t-foreach ="docs" t-as ="o" >
+					<div class= "page" >
+						<div class= "oe_structure" />
+						<style type ="text/css" >
+							.color_verde_oscuro{margin-right:auto;border-collapse:collapse;color:#FFF;background-color:#6f9400;border-color:#000;border-style:solid;border-width:1pt}
+							.color_verde{margin-right:auto;border-collapse:collapse;font-weight:bold;background-color:#d4e899;border-style:solid;border-width:1pt}
+							.sin_color{margin-right:auto;border-collapse:collapse;border-style:solid;border-width:1pt}
+							.color_plomo{margin-right:auto;border-collapse:collapse;font-weight:bold;background-color:#bfbfbf;border-style:solid;border-width:1pt}
+						</style>
+						<div class= "sin_color" style ="width:100%" >
+							<table width ="100%" class ="sin_color" >
+								<tr>
+									<td class="color_verde_oscuro" style="width:50%;font-size:24px">
+										<b>FORMULARIO DE PRESUPUESTO</b>
+									</td>
+									<td class ="sin_color" style ="width:25%">CODIGO:</td>
+									<td class ="sin_color" style ="text-align:center;style=width:25%" >
+										<b>
+											<p t-field ="o.name" />
+										</b>
+									</td>
+								</tr>
+							</table>
+							<div class= "color_plomo" >
+								<li>
+									<p>DATOS DEL CLIENTE</p>
+								</li>
+							</div>
+							<table width="100%" class="sin_color">
+								<tr style="width:100%">
+									<td class="color_verde" style="width:25%">Nombre del Cliente:</td>
+									<td class="sin_color" colspan="3" style="width:25%">
+										<p t-field="o.partner_id.name"/>
+									</td>
+								</tr>
+								<tr style="width:100%">
+									<td class="color_verde" style="width:25%">Dirección Obra:</td>
+									<td class="sin_color" colspan="3" style="width:25%">
+										<p t-field="o.partner_id.street"/>
+									</td>
+								</tr>
+								<tr style="width:100%">
+									<td class="color_verde" style="width:25%">Telefono Fijo:</td>
+									<td class="sin_color" style="width:25%">
+										<p t-field="o.partner_id.phone"/>
+									</td>
+									<td class="color_verde" style="width:25%">Celular:</td>
+									<td class="sin_color" style="width:25%">
+										<p t-field="o.partner_id.mobile"/>
+									</td>
+								</tr>
+							</table>
+							<div class= "color_plomo" >
+								<li>
+									<p>PRESUPUESTO MATERIAL SOLICITADO</p>
+								</li>
+							</div>
+							<table width ="100%" class ="sin_color" >
+								<tr style= "text-align:center" class ="color_verde" >
+									<td class ="color_verde" style="width:5%">No</td>
+									<td class ="color_verde" style="width:65%">ITEM</td>
+									<td class ="color_verde" style="width:30%">CANTIDAD (PZA)</td>
+								</tr>
+								<tr t-foreach ="o.order_line" t-as ="lineaVenta" >
+									<td class ="color_verde" style="width:5%;text-align:center">
+										<para t-esc ="numero()"/>
+									</td>
+									<td class ="sin_color" style="width:65%">
+										<para t-field ="lineaVenta.name" />
+									</td>
+									<td class ="sin_color" style="width:30%;text-align:right">
+										<p t-field ="lineaVenta.product_uom_qty"/>
+									</td>
+								</tr>
+							</table>
+							<table width ="100%" class ="sin_color" >
+								<tr>
+									<td style="width:50%" class="color_verde">
+										<h3>TOTAL VENTA (BS)</h3>
+									</td>
+									<td style="width:50%;text-align:right" class="sin_color">
+										<p style="text-align:right" t-esc ="totalMasComision(o.comision,o.amount_total)"/>
+										
+											
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</t>
+			</t>		
+		</template>
+	</data>
+</openerp>

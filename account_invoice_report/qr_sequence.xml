@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="qr_code_invoice" model="ir.sequence.type">
+            <field name="name">QR Invoice</field>
+            <field name="code">account.invoice</field>
+        </record>
+
+        <record id="qr_report_invoice_customer_sequrence" model="ir.sequence">
+            <field name="name">QR Customer Invoice</field>
+            <field name="code">account.invoice</field>
+<!--            <field name="prefix" domain="[('type','==','out_invoice')]"></field-->
+            <field name="padding">1</field>
+        </record>
+
+        <record id="qr_report_invoice_supplier_sequrence" model="ir.sequence">
+            <field name="name">QR Supplier Invoice</field>
+            <field name="code">account.invoice</field>
+<!--            <field name="prefix" domain="[('type','==','in_invoice')]"></field-->
+            <field name="padding">1</field>
+        </record>
+
+    </data>
+</openerp>

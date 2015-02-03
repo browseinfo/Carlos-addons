@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report
+            auto="False"
+            id="invoice_factura_report"
+            model="account.invoice"
+            name="factura_receipt"
+            rml="account_invoice_report/report/invoice_factura.rml"
+            string="Factura"
+            header="False"
+            menu="False"
+        />
+
+        <report
+            auto="False"
+            id="invoice_anverso_report"
+            model="account.invoice"
+            name="anverso_receipt"
+            rml="account_invoice_report/report/invoice_anverso.rml"
+            string="Anverso"
+            header="False"
+            menu="False"
+        />
+
+    </data>
+</openerp>

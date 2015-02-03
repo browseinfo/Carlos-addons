@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record id="group_sales_ext" model="res.groups">
+			<field name="name">Sales Person</field>
+		</record>
+		
+		<record id="group_manager_ext" model="res.groups">
+			<field name="name">Manager</field>
+		</record>
+
+	</data>
+	
+</openerp>
