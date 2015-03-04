@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		<!-- <record model="workflow" id="wkf_sesion">
+			<field name="name">Sesiones Workflow</field>
+			<field name="osv">pos.sesion</field>
+			<field name="on_create">True</field>
+		</record>
+		<record model="workflow.activity" id="act_cerrar_caja">
+			<field name="wkf_id" ref="wkf_sesion.wkf_pos"/>
+			<field name="name">cierre</field>
+			<field name="flow_stop">True</field>
+			<field name="action">cerrar_caja()</field>
+			<field name="kind">function</field>
+		</record>
+
+		<record model="workflow.transition" id="trans_paid_cierre">
+			<field name="act_from" ref="wkf_sesion.act_paid"/>
+			<field name="act_to" ref="act_cerrar_caja"/>
+			<field name="signal">cierre_caja</field>
+		</record> -->
+	</data>
+</openerp>

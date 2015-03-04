@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="pos_resumen_productos">
+				<t t-call="report.external_layout">
+					<div class="page">
+						<div class="main">
+							<div style="width:350px;">
+								<div>
+									<h1 style="font-weight: bold;">Resumen de Ventas por Productos</h1>
+								</div>
+								<table class="col-xs-12">
+									<tr>
+										<td style="width:25%; float:left; font-weight: bold; padding: 5px;">
+											<div><h3>Producto</h3></div>
+										</td>
+										<td style="width:25%; float:left; font-weight: bold; padding: 5px;">
+											<div><h3>Tipo de Venta</h3></div>
+										</td>										
+										<td style="width:25%; float:right; font-weight: bold;text-align: right; padding: 5px;">
+											<div><h3>Cantidad</h3></div>
+										</td>
+										<td style="width:25%; float:right; font-weight: bold;text-align: right; padding: 5px;">
+											<div><h3>Total Bs.</h3></div>
+										</td>
+									</tr>
+								</table>
+								<table t-foreach="get_pos_data(data)" t-as="pos" class="col-xs-12">
+								<tr>
+									<td style="width:25%; float:left;">
+										<div><t t-esc="pos[0]" /></div>	
+									</td>
+									<td style="width:25%; float:left;">
+										<div><t t-esc="pos[1]" /></div>	
+									</td>									
+									<td style="width:25%; float:right;text-align: right;">
+										<div><t t-esc="pos[2]" /></div>	
+									</td>
+									<td style="width:25%; float:right;text-align: right;">
+										<div><t t-esc="pos[3]" /></div>	
+									</td>									
+								</tr>
+								</table>
+								<table class="col-xs-12">
+									<tr>
+										<td style="width:25%; float:left;font-weight: bold;">
+											<h3>Totales</h3>
+										</td>
+										<td style="width:25%;">
+										</td>
+										<td style="width:25%; float:right;font-weight: bold;text-align: right;">
+											<div>
+												<h3><t t-esc="total_quantity()"/></h3>
+											</div>
+										</td>
+										<td style="width:25%; float:right;font-weight: bold;text-align: right;">
+											<div>
+												<h3><t t-esc="total_price()"/></h3>
+											</div>
+										</td>
+									</tr>
+								</table>							
+							</div>
+						</div>
+					</div>
+				</t>
+		</template>
+	</data>
+</openerp>

@@ -1,0 +1,5 @@
+
+import ew_pos_report_wiz
+import ew_pos_apertura_caja_wiz
+import ew_pos_cierre_caja_wiz
+import ew_pos_inventario_wiz

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="pos_inventario_menu"
+            string="POS Inventario Productos"
+            model="pos.order"
+            report_type="qweb-pdf"
+            name="ew_panchita.pos_inventario"
+            file="ew_panchita.pos_inventario"
+            menu="False"
+         />
+    </data>
+</openerp>

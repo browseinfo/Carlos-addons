@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="pos_inventario">
+				<t t-call="report.external_layout">
+					<div class="page">
+						<div class="main">
+							<div>
+								<div>
+									<h2>Stock por Productos</h2>
+								</div>
+								<div>
+									<h3>Fecha Inicial</h3>
+								</div>
+								<div>
+									<h3>Fecha Inicial</h3>
+								</div>
+								
+								<table class="col-xs-12">
+									<tr>
+										<td style="width:40%; float:left; font-weight: bold;">
+											<div><h3>Producto</h3></div>
+										</td>							
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3>Stock Anterior</h3></div>
+										</td>
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3>Ingresos</h3></div>
+										</td>
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3>Egresos</h3></div>
+										</td>
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3>Stock Actual</h3></div>
+										</td>
+									</tr>
+								</table>
+								
+								<table t-foreach="getInventoryData(data)" t-as="pos" class="col-xs-12">
+								<tr>
+									<td style="width:40%; float:left;">
+										<div><t t-esc="pos['name']" /></div>	
+									</td>
+									<td style="width:15%; float:left; text-align: right;">
+										<div><t t-esc="pos['yesterday_stock']" /></div>	
+									</td>
+									<td style="width:15%; float:left; text-align: right;">
+										<div><t t-esc="pos['today_in_stock']" /></div>	
+									</td>
+									<td style="width:15%; float:left; text-align: right;">
+										<div><t t-esc="pos['today_out_stock']" /></div>	
+									</td>
+									<td style="width:15%; float:left; text-align: right;">
+										<div><t t-esc="pos['today_stock']" /></div>	
+									</td>
+								</tr>
+								</table>
+
+								<table class="col-xs-12">
+									<tr>
+										<td style="width:40%; float:left; font-weight: bold;">
+											<div><h3>Totales</h3></div>
+										</td>							
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3><t t-esc="totalYesterdayStock()"/></h3></div>
+										</td>
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3><t t-esc="totalTodayInStock()"/></h3></div>
+										</td>
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3><t t-esc="totalTodayOutStock()"/></h3></div>
+										</td>
+										<td style="width:15%; float:right; font-weight: bold;text-align: right;">
+											<div><h3><t t-esc="totalTodayStock()"/></h3></div>
+										</td>
+									</tr>
+								</table>
+										
+							</div>
+						</div>
+					</div>
+				</t>
+		</template>
+	</data>
+</openerp>

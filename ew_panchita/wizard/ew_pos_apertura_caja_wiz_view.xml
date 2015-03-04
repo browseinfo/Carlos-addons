@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+	
+        <!-- Apertura Caja -->
+        
+        <record id="view_apertura_caja_wiz_qweb" model="ir.ui.view">
+            <field name="name">Apertura Caja</field>
+            <field name="model">ew.pos_report_apertura_caja.wiz.qweb</field>
+            <field name="arch" type="xml">
+                <form string="Apertura de Caja">
+                    <group col="4">
+						<field name="session_id"/>						
+					</group>
+                    <footer>
+                        <button name="print_apertura_caja_qweb" string="Imprimir Reporte" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancelar" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_apertura_caja_qweb" model="ir.actions.act_window">
+            <field name="name">Apertura de Caja</field>
+            <field name="res_model">ew.pos_report_apertura_caja.wiz.qweb</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_apertura_caja_wiz_qweb"/>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem parent="point_of_sale.menu_point_of_sale" 
+        	id="menu_apertura_caja" action="action_apertura_caja_qweb"/>
+        
+        
+	</data>
+</openerp>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="pos_cierre_caja">
+				<t t-call="report.external_layout">
+					<div class="page">
+						<div class="main">
+							<div>
+								<div style="width:300px;text-align:center; font-size:12px;">
+									<div style="width:300px;">
+										<table t-foreach="get_pos_data_datos_cierre_caja(data)" t-as="pos" class="col-xs-12">
+											<div><h3 style="font-weight: bold;"><t t-esc="pos[0]"/></h3></div>
+										</table>
+									</div>
+									<div style="width:300px;">
+										<div style="width:300px;">FECHA DE IMPRESION:</div>
+										<div style="width:300px;"><t t-esc="fecha_impresion()"/></div>
+									</div>
+									<div style="width:300px;">
+										<div style="width:300px;">HORA DE IMPRESION:</div>
+										<div style="width:300px;"><t t-esc="hora_impresion()"/></div>
+									</div>
+								</div>
+								
+								<div style="width:300px;text-align:center;">
+									<table t-foreach="get_pos_data_factura_minima(data)" t-as="pos" class="col-xs-12">
+										<div>FACT. INICIAL: <t t-esc="pos[0]"/></div>
+									</table>
+								</div>
+								<div style="width:300px;text-align:center;">
+									<table t-foreach="get_pos_data_factura_maxima(data)" t-as="pos" class="col-xs-12">
+										<div>FACT. FINAL: <t t-esc="pos[0]"/></div>
+									</table>
+								</div>
+										
+								<table t-foreach="get_pos_data_datos_cierre_caja(data)" t-as="pos" class="col-xs-12">
+									<div style="width:300px;text-align:center;">
+										<h3 style="font-weight: bold;">Cierre de Caja</h3>
+									</div>
+									<div style="width:300px;text-align:center;">
+										<t t-esc="pos[1]"/>
+									</div>
+									<div style="width:300px;text-align:center;">
+										FECHA
+									</div>
+									<div style="width:300px;text-align:center;">
+										<t t-esc="pos[2]"/>
+									</div>
+								</table>
+																
+								<table t-foreach="get_pos_data_ventas_cierre_caja_detallado(data)" t-as="pos" class="col-xs-12">
+									<div style="width:300px;">
+										<div style="width:50px;float:left">
+											<t t-esc="pos[0]"/>
+										</div>
+										<div style="width:150px;float:left">
+											<t t-esc="pos[1]"/>
+										</div>
+										<div style="width:100px;float:right">
+											<t t-esc="pos[2]"/>
+										</div>
+									</div>
+								</table>
+								<div style="width:300px;">
+									<div style="width:200px;float:Left">
+										TOTAL VENTA:
+									</div>
+									<div style="width:100px;float:right">
+										<t t-esc="total_cierre_caja_global()"/>
+									</div>
+								</div>
+								
+								<div style="width:300px;float:left">
+									________________________________
+								</div>
+								
+								<table t-foreach="get_pos_data_ventas_cierre_caja_global(data)" t-as="pos">
+									<div style="width:300px;">
+										<div style="width:30px;float:left">
+											<t t-esc="pos[0]"/>
+										</div>
+										<div style="width:60px;float:left;">
+											Boliviano
+										</div>
+										<div style="width:90px;float:left;">
+											<t t-esc="pos[1]"/>
+										</div>
+										<div style="width:30px;float:left;">
+											1.00
+										</div>									
+										<div style="width:90px;float:right;">
+											<t t-esc="pos[1]"/>
+										</div>
+									</div>
+								</table>
+								
+								<div style="width:300px;font-size:12px;">
+									<div style="width:200px;float:Left;">
+										TOTAL:
+									</div>
+									<div style="width:100px;float:right;">
+										<t t-esc="total_cierre_caja_global()"/>
+									</div>
+								</div>
+								
+								<div style="width:300px;float:left">
+									________________________________
+								</div>
+								
+								<table t-foreach="get_pos_data_ventas_cierre_caja_pagos_atc(data)" t-as="pos" class="col-xs-12">
+									<div style="width:300px;">
+										<div style="width:50px;float:left;font-size:10px;">
+											<t t-esc="pos[0]"/>
+										</div>
+										<div style="width:100px;float:left;font-size:10px;">
+											<t t-esc="pos[1]"/>
+										</div>
+										<div style="width:150px;float:right;font-size:10px;">
+											<t t-esc="pos[2]"/>
+										</div>
+									</div>
+								</table>
+								
+								<table t-foreach="get_pos_data_ventas_cierre_caja_pagos_caja_chica(data)" t-as="pos">
+									<div style="width:300px;">
+										<div style="width:50px;float:left">
+											<t t-esc="pos[0]"/>
+										</div>
+										<div style="width:100px;float:left">
+											<t t-esc="pos[1]"/>
+										</div>
+										<div style="width:150px;float:left">
+											<t t-esc="pos[2]"/>
+										</div>
+									</div>
+								</table>
+								
+								<div style="width:300px;font-size:12px;">
+									<div style="width:200px;float:Left;">
+										TOTAL:
+									</div>
+									<div style="width:100px;float:right;">
+										<t t-esc="total_cierre_caja_atc_chica()"/>
+									</div>
+								</div>
+								
+								<div style="width:300px;float:left">
+									________________________________
+								</div>
+								
+								<div style="width:300px;font-size:12px;">
+									<div style="width:200px;float:Left;">
+										TOTAL EFECTIVO:
+									</div>
+									<div style="width:100px;float:right;">
+										<t t-esc="gran_total_cierre_caja()"/>
+									</div>
+								</div>
+								
+								<div style="width:300px;float:left">
+									________________________________
+								</div>
+								
+								<div style="width:300px;font-size:12px;text-align:left">
+									DECLARACION:
+								</div>
+								
+								<div style="width:300px;font-size:12px;">
+									<div style="width:80px;float:left;">
+										Boliviano
+									</div>
+									<div style="width:90px;float:left;">
+										<t t-esc="gran_total_cierre_caja()"/>
+									</div>
+									<div style="width:40px;float:left;">
+										1.00
+									</div>
+									<div style="width:90px;float:right;">
+										<t t-esc="gran_total_cierre_caja()"/>
+									</div>
+								</div>
+								
+								<div style="width:300px;font-size:12px;">
+									<div style="width:200px;float:Left;">
+										TOTAL EFECTIVO:
+									</div>
+									<div style="width:100px;float:right;">
+										<t t-esc="gran_total_cierre_caja()"/>
+									</div>
+								</div>
+								
+								<table t-foreach="get_pos_data_facturas_anuladas(data)" t-as="pos" class="col-xs-12">
+									<div style="width:300px;">
+										<div style="width:150px;float:left">
+											Fact. Anuladas
+										</div>
+										<div style="width:50px;float:left">
+											<t t-esc="pos[0]"/>
+										</div>
+										<div style="width:100px;float:right">
+											<t t-esc="pos[1]"/>
+										</div>
+									</div>
+								</table>
+								
+								<div style="width:300px;text-align:center; font-size:12px;">
+									"UNA VEZ DECLARO SU CIERRE DE CAJA
+								</div>
+								<div style="width:300px;text-align:center; font-size:12px;">
+									NO SE PUEDE ADCIONAR MAS DINERO
+								</div>
+								<div style="width:300px;text-align:center; font-size:12px;">
+									PARA COMPENSAR SU DIFERENCIA"
+								</div>
+								<div>
+									  
+								</div>
+								<div style="width:300px;text-align:center; font-size:12px;">
+									<div style="font-size:12px;">
+										________________________________
+									</div>
+									<div style="font-size:14px;">
+										FIRMA CAJERO
+									</div>
+								</div>
+								
+								<!--
+								
+								-->
+							</div>
+						</div>
+					</div>
+				</t>
+		</template>
+	</data>
+</openerp>

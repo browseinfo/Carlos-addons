@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="pos_detail"
+            string="POS Resumen por Productos"
+            model="pos.order"
+            report_type="qweb-pdf"
+            name="ew_panchita.pos_resumen_productos"
+            file="ew_panchita.pos_resumen_productos"
+            menu="False"
+         />
+    </data>
+</openerp>

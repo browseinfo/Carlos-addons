@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- MENU DE SESION -->
+        <record id="pos_sesion_tree" model="ir.ui.view">
+            <field name="name">pos.sesion.tree</field>
+            <field name="model">pos.sesion</field>
+            <field name="arch" type="xml">
+                <tree string="Sesiones de Caja">
+                    <field name="name"/>
+                    <field name="cajero"/>
+                    <field name="inicio_caja"/>
+                    <field name="fin_caja"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="pos_sesion_form" model="ir.ui.view">
+            <field name="name">pos.sesion.form</field>
+            <field name="model">pos.sesion</field>
+            <field name="arch" type="xml">
+                <form string="Registro de Cajas">
+                    <header>
+                        <button name="apertura_caja" string="Aperturas Caja" type="object" states="borrador" />
+                        <button name="cierre_caja" string="Cerrar Caja" type="object" states="abierto" />
+                        <button name="ajuste_caja" string="Ajuste Caja Prueba" type="object" states="cerrado" />
+                        <field name="state" widget="statusbar" statusbar_visible="borrador,abierto,cerrado" nolabel="1" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box oe_right"> 
+                            <!-- <button name="meter_dinero" string="Meter Dinero" type="action"/> -->
+                        </div>
+                        <h1 class="oe_title">
+                            Sesion:
+                            <field name="name" class="oe_inline" attrs="{'readonly':['|',('state', '!=', 'borrador')]}"/>
+                        </h1>
+                        <group col="4" colspan="4">
+                            <field name="config_id" attrs="{'readonly':['|',('state', '!=', 'borrador')]}"/>
+                            <field name="cajero" attrs="{'readonly':['|',('state', '!=', 'borrador')]}"/>
+                            <field name="fecha_apertura"/>
+                            <field name="fecha_cierre"/>
+                            <field name="inicio_caja"  attrs="{'readonly':['|',('state', '!=', 'borrador')]}"/>
+                            <field name="fin_caja" attrs="{'invisible' : [('state', '==', 'borrador')], 'readonly' : [('state','!=','abierto')]}" />
+                            <field name="total_sesion" attrs="{'readonly' : 'True'}"/>
+                            <field name="pos_session_id" invisible="1"/>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Transacciones">
+                                <separator string="Detalle de Movimientos" />
+                                <field name="transacciones" colspan="6" nolabel="1" attrs="{'readonly':[('state', 'in', ['cerrado'])]}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="pos_sesion_action" model="ir.actions.act_window">
+            <field name="name">Sesion</field>
+            <field name="res_model">pos.sesion</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Vista para mostrar todas las Transacciones -->
+        <record id="pos_sesion_transacciones_tree" model="ir.ui.view">
+            <field name="name">pos.sesion.transacciones.tree</field>
+            <field name="model">pos.sesion.transacciones</field>
+            <field name="arch" type="xml">
+                <tree string="Transacciones">
+                    <field name="motivo" />
+                    <field name="responsable" />
+                    <field name="monto" />
+                    <field name="moneda" />
+                    <field name="tipo_transaccion"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pos_sesion_transacciones_form" model="ir.ui.view">
+            <field name="name">pos.sesion.transacciones.form</field>
+            <field name="model">pos.sesion.transacciones</field>
+            <field name="arch" type="xml">
+                <form string="Registros">
+                    <group string="Registro de Transacion" col="4" colspan="4">
+                        <group col="4" colspan="4">
+                            <field name="motivo" />
+                            <field name="responsable" />
+                        </group>
+                        <group col="6" colspan="6">
+                            <field name="monto" />
+                            <field name="moneda" />
+                            <field name="tipo_transaccion"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista para mostrar los Tipos de Transacciones -->
+        <record id="tipo_transacciones_tree" model="ir.ui.view">
+            <field name="name">tipo.transaccion.tree</field>
+            <field name="model">tipo.transaccion</field>
+            <field name="arch" type="xml">
+                <tree string="Tipo Transacciones">
+                    <field name="tipo_transaccion_id" string="Tipo2"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tipo_transacciones_form" model="ir.ui.view">
+            <field name="name">tipo.transaccion.form</field>
+            <field name="model">tipo.transaccion</field>
+            <field name="arch" type="xml">
+                <form string="Registros">
+                    <group string="Tipo Transacciones" col="4" colspan="4">
+                        <field name="tipo_transaccion_id" options="{'no_create': True}"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="pos_sesion_menu" name="Sesion y Cajas"/>
+        <menuitem id="submenu_pos_sesion_menu" name="Sesiones y Cajas" parent="pos_sesion_menu" sequence="0"/>
+        <menuitem id="submenu_submenu_pos_sesion_menu" name="Submenu sesion" parent="submenu_pos_sesion_menu" action="pos_sesion_action" sequence="0"/>
+
+        <!-- Agregando datos al form de voucher -->
+        <record model="ir.ui.view" id="pos_sesion_voucher_view">
+            <field name="name">pos.sesion.voucher.view</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_dialog_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount']" position="replace">
+                    <group colspan="4">
+                        <field name="amount" class="oe_inline"
+                            string="Paid Amount"
+                            widget='monetary' 
+                            invisible="context.get('line_type', False)"
+                            on_change="onchange_amount(amount, payment_rate, partner_id, journal_id, currency_id, type, date, payment_rate_currency_id, company_id, context)"/>
+                        <field name="moneda" string="Moneda" required="1"/>
+                        <field name="dolares" attrs="{'required' : [('moneda', '!=', 'bolivianos')], 'invisible' : [('moneda', '==', 'bolivianos')]}" on_change="cambio_para_cliente(amount, dolares, tasa, context)"/>
+                        <field name="tasa" attrs="{'required' : [('moneda', '!=', 'bolivianos')], 'invisible' : [('moneda', '==', 'bolivianos')]}" on_change="cambio_para_cliente(amount, dolares, tasa, context)"/>
+                        <field name="cambio_cliente" readonly="1"  attrs="{'invisible' : [('moneda', '==', 'bolivianos')]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

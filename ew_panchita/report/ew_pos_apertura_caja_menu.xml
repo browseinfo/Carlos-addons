@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <report
+            id="pos_apertura_caja_menu"
+            string="Apertura de Caja"
+            model="pos.order"
+            report_type="qweb-pdf"
+            name="ew_panchita.pos_apertura_caja"
+            file="ew_panchita.pos_apertura_caja"
+            menu="False"
+         />
+    </data>
+</openerp>

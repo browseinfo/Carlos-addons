@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <report
+            id="pos_cierre_caja_menu"
+            string="Cierre de Caja"
+            model="pos.order"
+            report_type="qweb-pdf"
+            name="ew_panchita.pos_cierre_caja"
+            file="ew_panchita.pos_cierre_caja"
+            menu="False"
+         />
+    </data>
+</openerp>
